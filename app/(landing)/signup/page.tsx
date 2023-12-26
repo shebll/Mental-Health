@@ -1,8 +1,37 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import Input from "./_components/Input";
+import Password from "./_components/Passoword";
 
 function SignUp() {
+  const [passwordsMatch, setPasswordsMatch] = useState<boolean>(false);
+
+  const submitHandle = async (e: FormData) => {
+    // e.preventDefault();
+    // const bodyData = {
+    //   firstName: e.get("FirstName"),
+    //   lastName: e.get("LastName"),
+    //   email: e.get("Email"),
+    //   password: e.get("Password"),
+    //   birthDate: e.get("BirthDate"),
+    //   gender: e.get("Gender"),
+    // };
+    // if (passwordsMatch) {
+    //   const res = await fetch(
+    //     "http://mentalmediator.somee.com/api/auth/register",
+    //     {
+    //       method: "POST",
+    //       body: JSON.stringify(bodyData),
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   );
+    //   console.log(res);
+    // }
+  };
   return (
     <div className="container mx-auto px-4 min-h-[90vh] flex justify-between items-center gap-40 md:pt-[100px]">
       <div className="hidden lg:flex flex-col gap-10 items-start flex-1">
@@ -20,8 +49,10 @@ function SignUp() {
           <Image
             src={"/landingImages/login.png"}
             width={350}
-            height={300}
+            height={350}
+            priority
             alt="login"
+            className="w-auto h-auto"
           />
         </div>
       </div>
@@ -41,56 +72,20 @@ function SignUp() {
         {/* <button className="w-full text-center py-4 bg-[#E9F1FF] rounded-2xl text-[#4285F4] font-medium">
           Sign in with Google
         </button> */}
-        <form action="" className="flex flex-col gap-10">
-          <div className="flex flex-col gap-4 ">
-            <label htmlFor="email" className="text-xl font-medium">
-              Enter your username or email address
-            </label>
-            <input
-              type="text"
-              id="email"
-              required
-              placeholder="Username or email address"
-              className="border px-6 py-4 outline-none rounded-2xl text-lg w-[100%]"
-            />
+        <form action={submitHandle} className="flex flex-col gap-6">
+          <div className="flex flex-row gap-8 ">
+            <Input name="FirstName" inputType="text" />
+            <Input name="LastName" inputType="text" />
           </div>
-          <div className="flex flex-col gap-4 ">
-            <label htmlFor="contactNumber" className="text-xl font-medium">
-              Enter Contact Number
-            </label>
-            <input
-              type="string"
-              id="contactNumber"
-              required
-              placeholder="Contact Number"
-              className="border px-6 py-4 outline-none rounded-2xl text-lg w-[100%]"
-            />
+          <div className="flex flex-row gap-8 ">
+            <Input name="Gender" inputType="radio" />
+            <Input name="BirthDate" inputType="date" />
           </div>
-
-          <div className="flex flex-col gap-4 ">
-            <label htmlFor="userName" className="text-xl font-medium">
-              Enter User name
-            </label>
-            <input
-              type="string"
-              id="userName"
-              required
-              placeholder="User name"
-              className="border px-6 py-4 outline-none rounded-2xl text-lg w-[100%]"
-            />
-          </div>
-          <div className="flex flex-col gap-4 ">
-            <label htmlFor="password" className="text-xl font-medium">
-              Enter your Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              required
-              placeholder="Password"
-              className="border px-6 py-4 outline-none rounded-2xl text-lg w-[100%]"
-            />
-          </div>
+          <Input name="Email" inputType="email" />
+          <Password
+            passwordsMatch={passwordsMatch}
+            setPasswordsMatch={setPasswordsMatch}
+          />
           <button
             type="submit"
             className="bg-[#4CAF50] text-white font-medium text-lg w-full text-center py-4 rounded-2xl"
